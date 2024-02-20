@@ -6,5 +6,9 @@
         <item name="android:statusBarColor">@color/green</item>
     </style>
 
+    <style name="RoundedSquare">
+        <item name="cornerSize">5%</item>
+    </style>
+
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
 </resources>
