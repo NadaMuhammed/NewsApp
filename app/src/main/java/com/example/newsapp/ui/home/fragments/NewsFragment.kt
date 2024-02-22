@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.home.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,23 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.newsapp.Constants
-import com.example.newsapp.api.model.News
 import com.example.newsapp.api.model.NewsResponse
 import com.example.newsapp.api.model.Source
 import com.example.newsapp.api.model.SourcesResponse
 import com.example.newsapp.api.retrofit.ApiManager
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.adapters.NewsAdapter
+import com.example.newsapp.ui.home.CategoryDetailsActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsFragment : Fragment() {
+class NewsFragment() : Fragment() {
     lateinit var binding: FragmentNewsBinding
-    var adapter = NewsAdapter(emptyList())
+    var adapter = NewsAdapter(emptyList()) {
+        val intent = Intent(this@NewsFragment.requireActivity(), CategoryDetailsActivity::class.java)
+        intent.putExtra("News", it)
+        startActivity(intent)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,11 +57,10 @@ class NewsFragment : Fragment() {
                     if (response.isSuccessful) {
                         showTabs(response.body()?.sources)
                     } else {
-                        val errorResponse = Gson().fromJson(
-                            response.errorBody()?.string(),
-                            SourcesResponse::class.java
-                        )
-                        showErrorViews(errorResponse)
+//                        val errorResponse = Gson().fromJson(
+//                            response.errorBody()?.string(),
+//                            SourcesResponse::class.java
+//                        )
                         changeErrorVisibility(true)
                     }
                 }
@@ -112,10 +116,6 @@ class NewsFragment : Fragment() {
                 }
 
             })
-    }
-
-    private fun showErrorViews(sourcesResponse: SourcesResponse) {
-
     }
 
     private fun showTabs(sources: List<Source>?) {
