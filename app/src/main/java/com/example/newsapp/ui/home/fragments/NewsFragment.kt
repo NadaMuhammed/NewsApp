@@ -2,6 +2,7 @@ package com.example.newsapp.ui.home.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.example.newsapp.api.retrofit.ApiManager
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.adapters.NewsAdapter
 import com.example.newsapp.ui.home.CategoryDetailsActivity
+import com.example.newsapp.ui.home.HomeActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import retrofit2.Call
@@ -24,8 +26,9 @@ import retrofit2.Response
 class NewsFragment() : Fragment() {
     lateinit var binding: FragmentNewsBinding
     var adapter = NewsAdapter(emptyList()) {
-        val intent = Intent(this@NewsFragment.requireActivity(), CategoryDetailsActivity::class.java)
-        intent.putExtra("News", it)
+        val intent =
+            Intent(this@NewsFragment.requireActivity(), CategoryDetailsActivity::class.java)
+        intent.putExtra(Constants.NEWS, it)
         startActivity(intent)
     }
 
