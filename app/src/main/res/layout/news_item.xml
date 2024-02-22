@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/grey"
-        tools:text="BBC News" />
+        tools:text="@string/news_source_placeholder" />
 
     <TextView
         android:id="@+id/newsTitleTv"
@@ -31,7 +31,7 @@
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/black"
         android:textSize="16sp"
-        tools:text="Why are football's biggest clubs starting a new tournament?" />
+        tools:text="@string/news_title_placeholder" />
 
     <TextView
         android:id="@+id/newsTimeTv"
@@ -40,5 +40,5 @@
         android:layout_gravity="end"
         android:layout_marginEnd="10dp"
         android:textColor="@color/grey"
-        tools:text="3 hours ago" />
+        tools:text="@string/news_time_placeholder" />
 </LinearLayout>

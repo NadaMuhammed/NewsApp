@@ -1,5 +1,7 @@
 package com.example.newsapp.api.model
 
+import java.io.Serializable
+
 data class SourcesResponse(
     var status: String?,
     var sources: List<Source>?
@@ -13,4 +15,4 @@ data class Source(
     var category: String?,
     var language: String?,
     var country: String?
-)
+): Serializable
