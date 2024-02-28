@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.home.activities.HomeActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.home.CategoryDetailsActivity"
+            android:name=".ui.home.activities.CategoryDetailsActivity"
             android:exported="true">
         </activity>
     </application>

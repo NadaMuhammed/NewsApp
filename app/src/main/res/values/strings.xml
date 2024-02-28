@@ -9,4 +9,6 @@
     <string name="news_source_placeholder">BBC News</string>
     <string name="news_time_placeholder">3 hours ago</string>
     <string name="view_article">View Full Article</string>
+    <string name="sports">Sports</string>
+    <string name="pick_your_category_of_interest">Pick your category\nof interest</string>
 </resources>

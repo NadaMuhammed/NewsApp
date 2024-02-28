@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.home
+package com.example.newsapp.ui.home.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.Constants
 import com.example.newsapp.api.model.News
 import com.example.newsapp.databinding.ActivityCategoryDetailsBinding
+import java.text.SimpleDateFormat
 
 
 class CategoryDetailsActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class CategoryDetailsActivity : AppCompatActivity() {
         val news =  intent.getSerializableExtra(Constants.NEWS) as News
         Glide.with(this).load(news.urlToImage).into(binding.detailsNewsImv)
         binding.detailsNewsTimeTv.text = news.publishedAt
+//        SimpleDateFormat("").parse(news.publishedAt)
         binding.detailsNewsDescriptionTv.text = news.description
         binding.detailsNewsSourceTv.text = news.source?.name
         binding.detailsNewsTitleTv.text = news.title
