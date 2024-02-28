@@ -2,7 +2,6 @@ package com.example.newsapp.ui.home.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +13,16 @@ import com.example.newsapp.api.model.Source
 import com.example.newsapp.api.model.SourcesResponse
 import com.example.newsapp.api.retrofit.ApiManager
 import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.ui.adapters.Category
 import com.example.newsapp.ui.adapters.NewsAdapter
-import com.example.newsapp.ui.home.CategoryDetailsActivity
-import com.example.newsapp.ui.home.HomeActivity
+import com.example.newsapp.ui.home.activities.CategoryDetailsActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsFragment() : Fragment() {
+class NewsFragment(val category: Category) : Fragment() {
     lateinit var binding: FragmentNewsBinding
     var adapter = NewsAdapter(emptyList()) {
         val intent =
@@ -50,7 +49,7 @@ class NewsFragment() : Fragment() {
     private fun loadSources() {
         changeProgressBarVisibility(true)
         changeErrorVisibility(false)
-        ApiManager.webServices.getSources(Constants.API_KEY, "sports")
+        ApiManager.webServices.getSources(Constants.API_KEY, category.id)
             .enqueue(object : Callback<SourcesResponse> {
                 override fun onResponse(
                     call: Call<SourcesResponse>,
