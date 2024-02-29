@@ -10,5 +10,10 @@
         <item name="cornerSize">5%</item>
     </style>
 
+    <style name="SideMenuText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
 </resources>
