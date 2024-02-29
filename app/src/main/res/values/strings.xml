@@ -11,4 +11,9 @@
     <string name="view_article">View Full Article</string>
     <string name="sports">Sports</string>
     <string name="pick_your_category_of_interest">Pick your category\nof interest</string>
+    <string name="header_news_app">News App!</string>
+    <string name="settings">Settings</string>
+    <string name="categories">Categories</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>

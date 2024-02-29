@@ -2,12 +2,17 @@ package com.example.newsapp.ui.home.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import com.example.newsapp.Constants
+import com.example.newsapp.R
 import com.example.newsapp.api.model.NewsResponse
 import com.example.newsapp.api.model.Source
 import com.example.newsapp.api.model.SourcesResponse
@@ -16,6 +21,7 @@ import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.adapters.Category
 import com.example.newsapp.ui.adapters.NewsAdapter
 import com.example.newsapp.ui.home.activities.CategoryDetailsActivity
+import com.example.newsapp.ui.home.activities.HomeActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import retrofit2.Call
