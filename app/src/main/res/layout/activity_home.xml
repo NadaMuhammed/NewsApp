@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.activities.HomeActivity"
->
+    tools:context=".ui.home.activities.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,7 +39,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    app:queryBackground="@drawable/rectangle_bg"
+                    app:searchIcon="@drawable/ic_search" />
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,7 +59,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_layout"
-        app:menu="@menu/drawer_menu"
         app:itemIconSize="20dp"
-        app:itemTextAppearance="@style/SideMenuText"/>
+        app:itemTextAppearance="@style/SideMenuText"
+        app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

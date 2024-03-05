@@ -48,7 +48,7 @@ class SearchFragment : Fragment() {
 
     private fun loadNewsWithSearch(query: String?) {
         if (query!=null){
-            ApiManager.webServices.getNewsWithSearch(Constants.API_KEY,query).enqueue(object : Callback<NewsResponse>{
+            ApiManager.webServices.getNews(Constants.API_KEY,"",query).enqueue(object : Callback<NewsResponse>{
                 override fun onResponse(
                     call: Call<NewsResponse>,
                     response: Response<NewsResponse>
