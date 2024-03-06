@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.Constants
 import com.example.newsapp.R
 import com.example.newsapp.api.model.NewsResponse
@@ -16,12 +17,14 @@ import com.example.newsapp.api.retrofit.ApiManager
 import com.example.newsapp.databinding.FragmentSearchBinding
 import com.example.newsapp.ui.adapters.NewsAdapter
 import com.example.newsapp.ui.home.activities.CategoryDetailsActivity
+import com.example.newsapp.ui.viewmodel.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
+    lateinit var viewModel: ViewModel
     val adapter = NewsAdapter(emptyList()) {
         val intent =
             Intent(this@SearchFragment.requireActivity(), CategoryDetailsActivity::class.java)
@@ -40,29 +43,17 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchNewsRv.adapter = adapter
+        viewModel = ViewModelProvider(this)[ViewModel::class.java]
+        observeToObservers()
         if (arguments!=null){
             val query = requireArguments().getString(Constants.QUERY)
-            loadNewsWithSearch(query)
+            viewModel.loadNews("", query!!)
         }
     }
 
-    private fun loadNewsWithSearch(query: String?) {
-        if (query!=null){
-            ApiManager.webServices.getNews(Constants.API_KEY,"",query).enqueue(object : Callback<NewsResponse>{
-                override fun onResponse(
-                    call: Call<NewsResponse>,
-                    response: Response<NewsResponse>
-                ) {
-                    if (response.isSuccessful && !response.body()?.articles.isNullOrEmpty()){
-                        adapter.updateNews(response.body()?.articles!!)
-                    }
-                }
-
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-
-                }
-
-            })
+    private fun observeToObservers(){
+        viewModel.newsLiveData.observe(viewLifecycleOwner){
+            adapter.updateNews(it!!)
         }
     }
 }

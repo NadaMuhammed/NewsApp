@@ -53,7 +53,7 @@ class NewsFragment(val category: Category) : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val sourceId = tab?.tag as String
-                viewModel.loadNews(sourceId)
+                viewModel.loadNews(sourceId, "")
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
