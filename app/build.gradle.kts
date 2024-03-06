@@ -57,8 +57,10 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
 
+    //coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
 }

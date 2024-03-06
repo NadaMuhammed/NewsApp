@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-        binding.searchView.setOnClickListener {
+        binding.searchView.setOnSearchClickListener {
             binding.titleTv.visibility = View.GONE
         }
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener,
