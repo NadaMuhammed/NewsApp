@@ -33,6 +33,8 @@ class NewsFragment(val category: Category, val onNewsClick: (News)-> Unit) : Fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         viewModel.loadSources(category)
         observeToObservers()
         initListeners()
@@ -67,24 +69,9 @@ class NewsFragment(val category: Category, val onNewsClick: (News)-> Unit) : Fra
             binding.tabLayout.addTab(tab)
         }
     }
-
-    private fun changeErrorVisibility(isVisible: Boolean) {
-        binding.errorView.root.isVisible = isVisible
-    }
-
-    private fun changeProgressBarVisibility(isVisible: Boolean) {
-        binding.progressBar.isVisible = isVisible
-    }
-
     private fun observeToObservers(){
         viewModel.sourcesLiveData.observe(viewLifecycleOwner) {
             showTabs(it)
-        }
-        viewModel.progressBarLiveData.observe(viewLifecycleOwner){
-            changeProgressBarVisibility(it)
-        }
-        viewModel.errorLiveData.observe(viewLifecycleOwner){
-            changeErrorVisibility(it)
         }
         viewModel.newsLiveData.observe(viewLifecycleOwner){
             if (it != null) {

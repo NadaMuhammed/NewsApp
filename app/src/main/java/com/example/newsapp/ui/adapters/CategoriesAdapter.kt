@@ -17,14 +17,7 @@ class CategoriesAdapter(val categoriesList: List<Category>,val onClick: (Categor
     override fun getItemCount(): Int = categoriesList.size
 
     override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-        holder.binding.categoryBtn.text = categoriesList[position].title
-        holder.binding.categoryBtn.backgroundTintList = ContextCompat.getColorStateList(holder.binding.categoryBtn.context, categoriesList[position].backgroundColorId)
-        holder.binding.categoryBtn.setCompoundDrawablesWithIntrinsicBounds(0, categoriesList[position].imageId, 0, 0)
-        if (categoriesList[position].side == "left"){
-            holder.binding.categoryBtn.setBackgroundDrawable(ContextCompat.getDrawable(holder.binding.categoryBtn.context, R.drawable.left_bg))
-        } else {
-            holder.binding.categoryBtn.setBackgroundDrawable(ContextCompat.getDrawable(holder.binding.categoryBtn.context, R.drawable.right_bg))
-        }
+        holder.binding.category = categoriesList[position]
         holder.binding.categoryBtn.setOnClickListener {
             onClick.invoke(categoriesList[position])
         }
