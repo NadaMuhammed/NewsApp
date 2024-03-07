@@ -2,26 +2,21 @@ package com.example.newsapp.ui.home.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.SearchView.OnCloseListener
 import android.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.newsapp.Constants
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityHomeBinding
 import com.example.newsapp.ui.adapters.Category
+import com.example.newsapp.ui.home.fragments.NewsDetailsFragment
 import com.example.newsapp.ui.home.fragments.CategoriesFragment
 import com.example.newsapp.ui.home.fragments.NewsFragment
 import com.example.newsapp.ui.home.fragments.SearchFragment
 import com.example.newsapp.ui.home.fragments.SettingsFragment
-import com.google.android.material.appbar.MaterialToolbar
-import retrofit2.http.Query
 
 class HomeActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
@@ -30,6 +25,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var searchFragment: SearchFragment
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     lateinit var category: Category
+    lateinit var categoryDetailsFragment: NewsDetailsFragment
+    lateinit var currentFragment: Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -43,7 +40,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        binding.searchView.visibility = View.GONE
+        if (currentFragment is CategoriesFragment)
+            binding.searchView.visibility = View.GONE
     }
 
     private fun initListeners() {
@@ -68,8 +66,10 @@ class HomeActivity : AppCompatActivity() {
         binding.searchView.setOnCloseListener {
             binding.searchView.onActionViewCollapsed()
             binding.titleTv.visibility = View.VISIBLE
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, NewsFragment(category)).commit()
+            showFragment(NewsFragment(category){
+                categoryDetailsFragment = NewsDetailsFragment(it)
+                showFragment(categoryDetailsFragment)
+            })
             true
         }
         binding.navigationView.setNavigationItemSelectedListener {
@@ -98,6 +98,7 @@ class HomeActivity : AppCompatActivity() {
     private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment)
             .addToBackStack("").commit()
+        currentFragment = fragment
     }
 
     private fun initFragments() {
@@ -105,9 +106,14 @@ class HomeActivity : AppCompatActivity() {
             category = it
             binding.searchView.visibility = View.VISIBLE
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, NewsFragment(it)).addToBackStack("").commit()
+                .replace(R.id.fragmentContainer, NewsFragment(it) { news ->
+                    categoryDetailsFragment = NewsDetailsFragment(news)
+                    showFragment(categoryDetailsFragment)
+                }).addToBackStack("").commit()
         }
-        searchFragment = SearchFragment()
+        searchFragment = SearchFragment{
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, NewsDetailsFragment(it)).addToBackStack("").commit()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

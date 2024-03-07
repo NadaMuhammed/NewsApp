@@ -1,32 +1,25 @@
 package com.example.newsapp.ui.home.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsapp.Constants
+import com.example.newsapp.api.model.News
 import com.example.newsapp.api.model.Source
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.ui.adapters.Category
 import com.example.newsapp.ui.adapters.NewsAdapter
-import com.example.newsapp.ui.home.activities.CategoryDetailsActivity
-import com.example.newsapp.ui.home.activities.HomeActivity
 import com.example.newsapp.ui.viewmodel.ViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
-class NewsFragment(val category: Category) : Fragment() {
+class NewsFragment(val category: Category, val onNewsClick: (News)-> Unit) : Fragment() {
     lateinit var binding: FragmentNewsBinding
     var adapter = NewsAdapter(emptyList()) {
-        val intent =
-            Intent(this@NewsFragment.requireActivity(), CategoryDetailsActivity::class.java)
-        intent.putExtra(Constants.NEWS, it)
-        startActivity(intent)
+        onNewsClick.invoke(it)
     }
     lateinit var viewModel: ViewModel
     override fun onCreateView(
