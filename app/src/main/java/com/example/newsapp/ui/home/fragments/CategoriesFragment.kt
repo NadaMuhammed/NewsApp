@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentCategoriesBinding
 import com.example.newsapp.ui.adapters.CategoriesAdapter
 import com.example.newsapp.ui.adapters.Category

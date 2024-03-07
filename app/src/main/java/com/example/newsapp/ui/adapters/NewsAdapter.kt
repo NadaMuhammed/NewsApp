@@ -24,11 +24,7 @@ class NewsAdapter(var news: List<News>?, val onClick: (News) -> Unit) :
     override fun getItemCount(): Int = news?.size!!
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        Glide.with(holder.itemView).load(news?.get(position)?.urlToImage)
-            .into(holder.binding.newsImv)
-        holder.binding.newsSourceTv.text = news?.get(position)?.source?.name
-        holder.binding.newsTimeTv.text = news?.get(position)?.publishedAt
-        holder.binding.newsTitleTv.text = news?.get(position)?.title
+        holder.binding.news = news?.get(position)
         holder.itemView.setOnClickListener {
             news?.get(position)?.let { it1 ->
                 onClick.invoke(it1)

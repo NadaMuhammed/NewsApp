@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,30 +22,32 @@ class ViewModel : ViewModel() {
     val errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val progressBarLiveData: MutableLiveData<Boolean> = MutableLiveData()
     fun loadSources(category: Category) {
-        progressBarLiveData.postValue(true)
-        errorLiveData.postValue(false)
+        progressBarLiveData.value = true
+        errorLiveData.value = false
         viewModelScope.launch {
             try {
                 val sources = ApiManager.webServices.getSources(Constants.API_KEY, category.id).sources
-                progressBarLiveData.postValue(false)
-                sourcesLiveData.postValue(sources)
+                progressBarLiveData.value = false
+                sourcesLiveData.value = sources
             } catch (e: Exception) {
-                progressBarLiveData.postValue(false)
-                errorLiveData.postValue(true)
+                progressBarLiveData.value = false
+                errorLiveData.value = true
+                Log.e("exception","$e")
             }
         }
     }
 
     fun loadNews(sourceId: String, query: String) {
-        errorLiveData.postValue(false)
+        errorLiveData.value = false
         try {
             viewModelScope.launch {
                 val news = ApiManager.webServices.getNews(Constants.API_KEY, sourceId, query).articles
-                progressBarLiveData.postValue(false)
-                newsLiveData.postValue(news)
+                progressBarLiveData.value = false
+                newsLiveData.value = news
             }
         } catch (e: Exception) {
-            errorLiveData.postValue(true)
+            errorLiveData.value = true
+            Log.e("exception","$e")
         }
     }
 }

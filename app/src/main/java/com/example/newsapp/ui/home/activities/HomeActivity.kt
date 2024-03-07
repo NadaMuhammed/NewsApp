@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.SearchView.OnQueryTextListener
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.newsapp.Constants
 import com.example.newsapp.R
@@ -29,8 +30,7 @@ class HomeActivity : AppCompatActivity() {
     lateinit var currentFragment: Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         showDrawer()
         initFragments()
         initListeners()
@@ -78,7 +78,7 @@ class HomeActivity : AppCompatActivity() {
             } else if (it.itemId == R.id.settings_menu_item) {
                 showFragment(SettingsFragment())
             }
-            binding.root.closeDrawers()
+            binding.drawerLayout.closeDrawers()
             true
         }
     }
@@ -87,9 +87,9 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         actionBarDrawerToggle =
-            ActionBarDrawerToggle(this, binding.root, R.string.drawer_open, R.string.drawer_close)
+            ActionBarDrawerToggle(this, binding.drawerLayout, R.string.drawer_open, R.string.drawer_close)
         actionBarDrawerToggle.isDrawerIndicatorEnabled = true
-        binding.root.addDrawerListener(actionBarDrawerToggle)
+        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         actionBarDrawerToggle.drawerArrowDrawable.color = resources.getColor(R.color.white)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
