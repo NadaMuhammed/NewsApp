@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.api.model.News
 import com.example.newsapp.databinding.NewsItemBinding
 
-class NewsAdapter(var news: List<News>?, val onClick: (News) -> Unit) :
+class NewsAdapter(var news: List<News?>?, val onClick: (News) -> Unit) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     class NewsViewHolder(var binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -32,7 +32,7 @@ class NewsAdapter(var news: List<News>?, val onClick: (News) -> Unit) :
         }
     }
 
-    fun updateNews(newNews: List<News>) {
+    fun updateNews(newNews: List<News?>) {
         this.news = newNews
         notifyDataSetChanged()
     }

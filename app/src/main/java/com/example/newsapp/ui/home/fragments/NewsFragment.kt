@@ -61,11 +61,11 @@ class NewsFragment(val category: Category, val onNewsClick: (News)-> Unit) : Fra
         })
     }
 
-    private fun showTabs(sources: List<Source>?) {
+    private fun showTabs(sources: List<Source?>?) {
         sources?.forEach { source ->
             val tab = binding.tabLayout.newTab()
-            tab.text = source.name
-            tab.tag = source.id
+            tab.text = source?.name
+            tab.tag = source?.id
             binding.tabLayout.addTab(tab)
         }
     }

@@ -10,15 +10,24 @@ import com.example.newsapp.api.model.NewsResponse
 import com.example.newsapp.api.model.Source
 import com.example.newsapp.api.model.SourcesResponse
 import com.example.newsapp.api.retrofit.ApiManager
+import com.example.newsapp.database.MyDatabase
 import com.example.newsapp.ui.adapters.Category
+import com.example.newsapp.ui.data.data_source.local_data_source.LocalDataSourceImpl
+import com.example.newsapp.ui.data.data_source.remote_data_source.RemoteDataSourceImpl
+import com.example.newsapp.ui.data.repository.NewsRepository
+import com.example.newsapp.ui.data.repository.NewsRepositoryImpl
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ViewModel : ViewModel() {
-    val sourcesLiveData: MutableLiveData<List<Source>?> = MutableLiveData()
-    val newsLiveData: MutableLiveData<List<News>?> = MutableLiveData()
+    val newsRepo: NewsRepository = NewsRepositoryImpl(
+        RemoteDataSourceImpl(), LocalDataSourceImpl(
+        MyDatabase.getInstance())
+    )
+    val sourcesLiveData: MutableLiveData<List<Source?>?> = MutableLiveData()
+    val newsLiveData: MutableLiveData<List<News?>?> = MutableLiveData()
     val errorLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val progressBarLiveData: MutableLiveData<Boolean> = MutableLiveData()
     fun loadSources(category: Category) {
@@ -26,10 +35,10 @@ class ViewModel : ViewModel() {
         errorLiveData.value = false
         viewModelScope.launch {
             try {
-                val sources = ApiManager.webServices.getSources(Constants.API_KEY, category.id).sources
+                val sources = newsRepo.loadSources(category.id)
                 progressBarLiveData.value = false
                 sourcesLiveData.value = sources
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 progressBarLiveData.value = false
                 errorLiveData.value = true
                 Log.e("exception","$e")
@@ -41,11 +50,11 @@ class ViewModel : ViewModel() {
         errorLiveData.value = false
         try {
             viewModelScope.launch {
-                val news = ApiManager.webServices.getNews(Constants.API_KEY, sourceId, query).articles
+                val news = newsRepo.loadNews(sourceId, query)
                 progressBarLiveData.value = false
                 newsLiveData.value = news
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             errorLiveData.value = true
             Log.e("exception","$e")
         }
