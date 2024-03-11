@@ -11,9 +11,7 @@ class NewsRepositoryImpl(val remoteDataSource: RemoteDataSource,
     override suspend fun loadNews(sourceId: String, query: String): List<News?> {
         if(ConnectivityChecker.isNetworkAvailable()){
             val response = remoteDataSource.loadNews(sourceId, query)
-            response.articles?.let {
-                localDataSource.saveNews(it)
-            }
+            response.articles?.let { localDataSource.saveNews(it) }
             return response.articles!!
         }else {
             return localDataSource.loadNews(sourceId)
@@ -23,9 +21,7 @@ class NewsRepositoryImpl(val remoteDataSource: RemoteDataSource,
     override suspend fun loadSources(categoryId: String): List<Source?> {
         if(ConnectivityChecker.isNetworkAvailable()){
             val response = remoteDataSource.loadSources(categoryId)
-            response.sources?.let {
-                localDataSource.saveSources(it)
-            }
+            response.sources?.let { localDataSource.saveSources(it) }
             return response.sources!!
         }else {
             return localDataSource.loadSources(categoryId)

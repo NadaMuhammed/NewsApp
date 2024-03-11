@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">اللغة</string>
+    <string name="english">الانجليزية</string>
+    <string name="arabic">العربية</string>
+    <string name="settings">الاعدادات</string>
+    <string name="categories">الفئات</string>
+    <string name="pick_your_category_of_interest">اختر فئة اهتمامك</string>
+    <string name="sports">الرياضة</string>
+</resources>

@@ -1,5 +1,7 @@
 package com.example.newsapp.ui.adapters
 
+import android.content.res.Resources
+import com.example.newsapp.MyApplication
 import com.example.newsapp.R
 
 data class Category(

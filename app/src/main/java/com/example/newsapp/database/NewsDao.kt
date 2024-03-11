@@ -9,7 +9,7 @@ import com.example.newsapp.api.model.Source
 
 @Dao
 interface NewsDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addNews(news: List<News>)
 
     @Query("select * from News where source = :source ")

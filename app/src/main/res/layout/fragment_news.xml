@@ -28,7 +28,6 @@
             app:tabBackground="@drawable/tab_background"
             app:tabIndicator="@null"
             app:tabMode="scrollable"
-            app:tabPaddingEnd="35dp"
             app:tabRippleColor="@color/green"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/green" />

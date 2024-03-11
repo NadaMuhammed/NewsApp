@@ -1,11 +1,11 @@
 package com.example.newsapp.ui.home.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.api.model.News
 import com.example.newsapp.api.model.Source
@@ -67,6 +67,12 @@ class NewsFragment(val category: Category, val onNewsClick: (News)-> Unit) : Fra
             tab.text = source?.name
             tab.tag = source?.id
             binding.tabLayout.addTab(tab)
+        }
+        for (i in 0 until binding.tabLayout.tabCount) {
+            val tab = (binding.tabLayout.getChildAt(0) as ViewGroup).getChildAt(i)
+            val p = tab.layoutParams as MarginLayoutParams
+            p.setMargins(0, 0, 50, 0)
+            tab.requestLayout()
         }
     }
     private fun observeToObservers(){
