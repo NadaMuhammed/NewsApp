@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.newsapp.R
 
 @BindingAdapter("url")
-fun loadImageUrlToImageView(imageView: ImageView, url: String) {
+fun loadImageUrlToImageView(imageView: ImageView, url: String?) {
     Glide.with(imageView).load(url)
         .into(imageView)
 }
